@@ -47,7 +47,7 @@
   "extra": {
     "laravel": {
       "providers": [
-        "DanieleMontecchi\\LaravelUserstamps\\UserstampsServiceProvider"
+        "DanieleMontecchi\\LaravelUserstamps\\LaravelUserstampsServiceProvider"
       ]
     }
   },
