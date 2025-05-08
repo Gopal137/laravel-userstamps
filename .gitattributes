@@ -1,0 +1,21 @@
+# Exclude files from export (e.g. when someone runs `composer install --prefer-dist`)
+/tests                      export-ignore
+/.github                   export-ignore
+/.gitignore                export-ignore
+/.gitattributes            export-ignore
+/phpunit.xml               export-ignore
+/setup.sh                  export-ignore
+
+# Normalize line endings
+* text=auto
+
+# Treat PHP files as text
+*.php text
+
+# Explicitly mark binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary

@@ -1,0 +1,63 @@
+{
+  "name": "danielemontecchi/laravel-userstamps",
+  "description": "Automatically track the user who created, updated, or deleted Eloquent models in Laravel, with database macros and model traits.",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Daniele Montecchi",
+      "email": "daniele@montecchi.me"
+    }
+  ],
+  "homepage": "https://danielemontecchi.com",
+  "support": {
+    "issues": "https://github.com/danielemontecchi/laravel-userstamps/issues"
+  },
+  "keywords": [
+    "laravel",
+    "eloquent",
+    "userstamps",
+    "audit",
+    "blameable",
+    "created-by",
+    "updated-by",
+    "deleted-by",
+    "model-events",
+    "laravel-package"
+  ],
+  "require": {
+    "php": "^8.1 || ^8.2 || ^8.3 || ^8.4",
+    "illuminate/support": "^10.0|^11.0|^12.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "DanieleMontecchi\\LaravelUserstamps\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "DanieleMontecchi\\LaravelUserstamps\\Tests\\": "tests/"
+    }
+  },
+  "require-dev": {
+    "orchestra/testbench": "^8.0 || ^9.0 || ^10.0",
+    "pestphp/pest": "^2.0",
+    "pestphp/pest-plugin-laravel": "^2.0"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "DanieleMontecchi\\LaravelUserstamps\\UserstampsServiceProvider"
+      ]
+    }
+  },
+  "scripts": {
+    "test": "pest"
+  },
+  "minimum-stability": "stable",
+  "config": {
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  }
+}
